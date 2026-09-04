@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison de Hakeemat | Luxury Fashion Catalog</title>
+<!-- Google Fonts for Luxury Aesthetic -->
+<link href="https://googleapis.com" rel="stylesheet">
+<!-- FontAwesome for Social Icons -->
+<link rel="stylesheet" href="https://cloudflare.com">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Header & Navigation -->
+<header>
+<div class="logo-container">
+<img src="logo.png" alt="Maison de Hakeemat Logo" class="logo-image">
+<span class="logo-text">Maison de Hakeemat</span>
+</div>
+<nav>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#catalog">The Catalog</a></li>
+<li><a href="#instagram">Instagram</a></li>
+</ul>
+</nav>
+</header>
+<!-- Hero Section -->
+<section id="home" class="hero">
+<div class="hero-content">
+<h1>Couture Defined</h1>
+<p>Discover bespoke and ready-to-wear luxury collections tailored uniquely to your essence.</p>
+<a href="#catalog" class="cta-btn">View Catalog</a>
+</div>
+</section>
+<!-- Catalog Section -->
+<section id="catalog" class="catalog-container">
+<h2 class="section-title">Our Design Catalog</h2>
+<p class="section-subtitle">Select your favorite styles below to build your custom lookbook</p>
+<div class="catalog-grid">
+<!-- Style Item 1 -->
+<div class="catalog-card" data-style-name="The Royalty Aso-Ebi" onclick="toggleSelect(this)">
+<div class="image-wrapper">
+<img src="style1.jpg" alt="Maison de Hakeemat Bespoke Traditional Design">
+<div class="badge">Bespoke Traditional</div>
+</div>
+<div class="card-details">
+<h3>The Royalty Aso-Ebi</h3>
+<p>Intricate embroidery, hand-beaded lace detailing, and sculptural structural silhouette.</p>
+<button class="select-btn">Select This Design</button>
+</div>
+</div>
+<!-- Style Item 2 -->
+<div class="catalog-card" data-style-name="The Silk Flora Silhouette" onclick="toggleSelect(this)">
+<div class="image-wrapper">
+<img src="style2.jpg" alt="Maison de Hakeemat Ready-To-Wear Design">
+<div class="badge">Ready-To-Wear</div>
+</div>
+<div class="card-details">
+<h3>The Silk Flora Silhouette</h3>
+<p>Flowing high-grade silk blend midi featuring custom artistic prints and structural sleeves.</
+p>
+<button class="select-btn">Select This Design</button>
+</div>
+</div>
+<!-- Style Item 3 -->
+<div class="catalog-card" data-style-name="Velvet Gilded Gown" onclick="toggleSelect(this)">
+<div class="image-wrapper">
+<img src="style3.jpg" alt="Maison de Hakeemat Evening Couture Design">
+<div class="badge">Evening Couture</div>
+</div>
+<div class="card-details">
+<h3>Velvet Gilded Gown</h3>
+<p>Deep premium velvet corset top melting into a sleek, floor-length dramatic train.</p>
+<button class="select-btn">Select This Design</button>
+</div>
+</div>
+</div>
+<!-- Sticky Selection Sticky Bar -->
+<div class="submission-wrapper">
+<p id="counter-text">No styles selected yet.</p>
+<button class="submit-selections-btn" onclick="submitOrders()">
+<i class="fab fa-whatsapp"></i> Send Chosen Designs to Order
+</button>
+</div>
+</section>
+<!-- Instagram Feed Banner -->
+<section id="instagram" class="instagram-banner">
+<h2>Follow Our Journey</h2>
+<p>Get daily design inspiration behind the scenes at <strong>@MaisonDeHakeemat</strong></p>
+<a href="https://instagram.com" target="_blank" class="instagram-link">
+<i class="fab fa-instagram"></i> @MaisonDeHakeemat
+</a>
+</section>
+<!-- Footer -->
+<footer>
+</footer>
+<p>&copy; 2026 Maison de Hakeemat. All Rights Reserved. Crafted for Elegance.</p>
+<!-- Interactive Selection Logic -->
+<script>
+let selectedStyles = [];
+function toggleSelect(card) {
+// Stop button text clicks from firing twice
+if (event.target.tagName === 'BUTTON') {
+event.preventDefault();
+}
+card.classList.toggle('selected');
+const styleName = card.getAttribute('data-style-name');
+const btn = card.querySelector('.select-btn');
+if(card.classList.contains('selected')) {
+btn.textContent = 'Design Selected ✓';
+btn.style.background = '#27ae60';
+btn.style.color = '#ffffff';
+btn.style.borderColor = '#27ae60';
+if(!selectedStyles.includes(styleName)) {
+selectedStyles.push(styleName);
+}
+} else {
+btn.textContent = 'Select This Design';
+btn.style.background = 'transparent';
+btn.style.color = 'var(--dark)';
+btn.style.borderColor = 'var(--dark)';
+selectedStyles = selectedStyles.filter(item => item !== styleName);
+}
+// Update Counter UI text
+const counterText = document.getElementById('counter-text');
+const submitBtn = document.querySelector('.submit-selections-btn');
+if(selectedStyles.length > 0) {
+counterText.textContent = `Selected: ${selectedStyles.length} item(s) (${selectedStyles.join(',
+')})`;
+submitBtn.classList.add('active');
+} else {
+counterText.textContent = "No styles selected yet.";
+submitBtn.classList.remove('active');
+}
+}
+function submitOrders() {
+if(selectedStyles.length === 0) {
+alert("Please select at least one design from the catalog to submit your order inquiry!");
+return;
+}
+// Put your phone number here (include international country code, e.g., 234 for Nigeria)
+const phoneNumber = "2349020235022";
+// Generate the auto-text prompt message
+let message = `Hello Maison de Hakeemat, I am browsing your catalog website and I am highly interested in
+ordering details for these designs:\n\n`
+;
+selectedStyles.forEach((style, index) => {
+message += `${index + 1}. ${style}\n`
+;
+});
+message += `\nPlease let me know the requirements and measurements needed!`;
+// Open window using secure WhatsApp API string structure
+const encodedMessage = encodeURIComponent(message);
+window.open(`https://wa.me{phoneNumber}?text=${encodedMessage}`
+, '_blank');
+}
+</script>
+</body>
+</html>
